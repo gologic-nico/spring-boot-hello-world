@@ -10,7 +10,7 @@ Différents outils seront mis à contribution tel que :
 * [Projet jenkins-pipeline-library](https://github.com/gologic-nico/jenkins-pipeline-library.git)
 
 ## Requis
-* VM CentOs 7 avec la base d'environnement "Infrastructure Server"
+* VM CentOs 7 vanille avec la base d'environnement "Infrastructure Server"
 * Accès root
 
 ## Étape à suivre
