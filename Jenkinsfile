@@ -5,14 +5,12 @@ node {
     }
 
     docker.image('uitests/docker-maven-chrome').inside {
-        def mvnOpts = " --batch-mode -s $MAVEN_SETTINGS"
-        
         stage('Maven Clean') {
-            sh "mvn clean -Dit.skip=false $mvnOpts"
+            sh "mvn clean -Dit.skip=false"
         }
 
         stage('Artefact Package') {
-            sh "mvn package -DskipTests $mvnOpts"
+            sh "mvn package -DskipTests"
         }
 
         stage('Boot Hello World') {
