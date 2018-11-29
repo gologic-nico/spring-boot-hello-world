@@ -29,7 +29,7 @@ node {
             stage('Robot Test') {
                 step([
                     $class : 'RobotPublisher',
-                    outputPath : "robotframework-reports",
+                    outputPath : "target/robotframework-reports",
                     outputFileName : "*.xml",
                     disableArchiveOutput : false,
                     passThreshold : 100,
