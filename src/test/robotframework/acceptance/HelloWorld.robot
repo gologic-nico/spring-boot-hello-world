@@ -3,7 +3,7 @@ Documentation     Simple example using SeleniumLibrary.
 Library           SeleniumLibrary
 
 *** Variables ***
-${URL}      http://localhost:8080/greeting?name=Montréal JUG
+${URL}      https://www.google.ca
 @{CHROME_ARGUMENTS}    --disable-infobars    --headless    --disable-gpu
 ${BROWSER}        Chrome
 ${TIMEOUT}        10s
@@ -20,7 +20,7 @@ Open Browser Hello World
     ${chrome_options}=    Set Chrome Options
     Create Webdriver    ${BROWSER}    chrome_options=${chrome_options}
     Go To    ${URL}
-    Title Should Be    spring-boot-hello-world    ${timeout}
+    Title Should Be    Google    ${timeout}
     Capture Page Screenshot
     [Teardown]    Close Browser
     

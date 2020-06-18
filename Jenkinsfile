@@ -12,18 +12,6 @@ node("agent-complet") {
         }
     }
 
-    stage('Artefact Package') {
-        mvn.with {
-            sh "mvn package -DskipTests"
-        }
-    }
-
-    stage('Boot Hello World') {
-        sh "nohup java -jar target/spring-boot-hello-world-1.0.0-SNAPSHOT.jar &"
-    }
-
-    sleep 15
-
     boolean isRobotFailed = false
 
     try {
@@ -34,7 +22,7 @@ node("agent-complet") {
         }
     } catch (Exception e) {
         echo "Robot test error..."
-        isError = true
+        isRobotFailed = true
     }finally{
         stage('Robot Report') {
             step([
