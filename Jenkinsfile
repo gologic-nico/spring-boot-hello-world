@@ -1,3 +1,5 @@
+@Library(value= 'sipl-shared-lib@master', changelog=false)_ 
+
 node("agent-complet") {
     stage("Checkout") {
       deleteDir()
@@ -5,11 +7,15 @@ node("agent-complet") {
     }
 
     stage('Maven Clean') {
-        sh "mvn clean -Dit.skip=false"
+        mvn.with {
+            sh "mvn clean -Dit.skip=false"
+        }
     }
 
     stage('Artefact Package') {
-        sh "mvn package -DskipTests"
+        mvn.with {
+            sh "mvn package -DskipTests"
+        }
     }
 
     stage('Boot Hello World') {
@@ -22,7 +28,9 @@ node("agent-complet") {
 
     try {
         stage('Robot Test') {
-            sh "mvn clean org.robotframework:robotframework-maven-plugin:run"
+            mvn.with {
+                sh "mvn clean org.robotframework:robotframework-maven-plugin:run"
+            }
         }
     } catch (Exception e) {
         echo "Robot test error..."
@@ -39,13 +47,13 @@ node("agent-complet") {
                 otherFiles : "*.png",
             ])
         }
-        
+
         stage('Artefact Archive') {
             // Archive the build output artifacts.
             archiveArtifacts artifacts: 'target/*.jar,target/robotframework-reports/*.*' 
         }
     }
-    
+
     if(isRobotFailed){
         error "Robot Test Failed. Check log file!" 
     }
