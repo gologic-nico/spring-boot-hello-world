@@ -8,6 +8,8 @@ node("agent-complet") {
     }
 
     stage('Call HP ALM From SIPL Lib') {
-        hpalm "HPALM_USER", "SPE", "POC_PERENNITE", "291"
+        def hpAlmMaps = [ hpalmCredentialId: "HPALM_USER", domain: "SPE", project: "POC_PERENNITE", campaignId: "291"]
+
+        hpalm hpAlmMaps
     }
 }
