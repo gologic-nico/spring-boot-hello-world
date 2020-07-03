@@ -36,6 +36,17 @@ node("agent-complet") {
             ])
         }
 
+        stage('Rapport de tests') {
+            // les tests surefire et failsafe sont mergés dans le meme dossier
+           junit allowEmptyResults: true, testResults: 'target/robotframework-reports/*.xml'
+        }
+
+        stage('Rapport HP ALM') {
+            String amlFolder = "Test-Auto\\ROBOT-TEST-UPLOAD"
+            // Pusher les résultats de test dans HP ALM
+           uploadResultToALM almServerName: 'HPALM', credentialsId: 'HPALM_USER', almDomain: 'SPE', clientType: '', almProject: 'POC_PERENNITE', testingFramework: 'JUnit', testingTool: 'Robot', almTestFolder: amlFolder, almTestSetFolder: amlFolder, almTimeout: '60', testingResultFile: '**/junitResult.xml', jenkinsServerUrl: 'https://sipl.desjardins.com/jkpart'
+        }
+
         stage('Artefact Archive') {
             // Archive the build output artifacts.
             archiveArtifacts artifacts: 'target/*.jar,target/robotframework-reports/*.*' 
